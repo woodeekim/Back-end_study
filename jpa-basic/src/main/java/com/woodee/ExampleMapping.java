@@ -7,22 +7,22 @@ import javax.persistence.EntityManagerFactory;
 import javax.persistence.EntityTransaction;
 import javax.persistence.Persistence;
 
-public class JpaMain {
+public class ExampleMapping {
     public static void main(String[] args) {
 
         EntityManagerFactory emf = Persistence.createEntityManagerFactory("hello");
         EntityManager em = emf.createEntityManager();
         EntityTransaction tx = em.getTransaction();
+
         tx.begin();
 
         try {
             Member member = new Member();
-            member.setId(1L);
-            member.setUsername("우디");
-            member.setRoleType(RoleType.User);
+            member.setId(4L);
+            member.setUsername("허허");
+            member.setAge(28);
+            member.setRoleType(RoleType.Guest);
             em.persist(member);
-
-            System.out.println("왜 안들어갈까");
 
             tx.commit();
         } catch (Exception e) {
@@ -30,6 +30,7 @@ public class JpaMain {
         } finally {
             em.close();
         }
-            emf.close();
+        emf.close();
     }
+
 }

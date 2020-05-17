@@ -1,6 +1,6 @@
 package com.woodee.example;
 
-import com.woodee.Member;
+import com.woodee.data.Member;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
@@ -9,7 +9,7 @@ import javax.persistence.Persistence;
 import java.util.List;
 
 public class ExampleCRUD {
-    public static void main(String[] args) {
+    /*public static void main(String[] args) {
         // 엔티티 매니저 팩토리는 하나만 생성해서 애플리케이션 전체에 공유
         EntityManagerFactory emf = Persistence.createEntityManagerFactory("hello"); //persistence.xml > persistence-unit 이름
         // 엔티티 매니저는 쓰레드간에 공유 X (사용하고 버려야한다.)
@@ -20,13 +20,13 @@ public class ExampleCRUD {
         tx.begin();
         try {
 
-            /* 등록
-            Member member = new Member();
-            member.setId(4L);
-            member.setName("KKK");
-            */
 
-            /* 검색 */
+*//*            Member member1 = new Member();
+            member1.setId(4L);
+            member1.setUsername("KKK");*//*
+
+
+            *//* 검색 *//*
             // Member findMember = em.find(Member.class, 4L); // 가장 단순한 조회 방법
             // <-> 검색, 조건이 필요한 경우 JPQL 이용
 
@@ -39,17 +39,17 @@ public class ExampleCRUD {
                     .getResultList();
 
             //iter~ 치면 자동으로 나온다.
-            for (Member member1 : resultList) {
-                System.out.println("member.name = " + member1.getName());
+            for (Member member : resultList) {
+                System.out.println("member.name = " + member.getUsername());
             }
 
-            /*
+            *//*
             수정
             findMember.setName("김근본");
 
             삭제
             em.remove(findMember);
-            */
+            *//*
 
             // em.persist(member);
             tx.commit();
@@ -66,5 +66,5 @@ public class ExampleCRUD {
 
 
 
-    }
+    }*/
 }
