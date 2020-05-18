@@ -17,12 +17,12 @@ public class JpaMain {
 
         try {
             Member member = new Member();
-            member.setId(1L);
             member.setUsername("우디");
-            member.setRoleType(RoleType.User);
+            member.setRoleType(RoleType.USER);
+
+            System.out.println("아아!?");
             em.persist(member);
 
-            System.out.println("왜 안들어갈까");
 
             tx.commit();
         } catch (Exception e) {

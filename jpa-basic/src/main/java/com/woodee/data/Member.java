@@ -8,6 +8,11 @@ import java.time.LocalDateTime;
 import java.util.Date;
 
 @Entity
+@SequenceGenerator(
+        name= "MEMBER_SEQ_GENERATOR",
+        sequenceName = "MEMBER_SQL", // 맵핑할 데이터베이스 시퀀스 이름
+        initialValue = 1, allocationSize = 1
+)
 public class Member {
 
     //만약 요구 사항이 있다면
@@ -17,8 +22,32 @@ public class Member {
      * 3. 회원을 설명할 수 있는 필드가 있어야 한다. 길이 제한 없음
      */
 
+
+    /*
+    * 기본키 맵핑
+    * - 기본 키 제약 조건
+    *   - null 아니어야 한다.
+    *   - 유일해야한다.
+    *   - 변하면 안된다.
+    * => 권장하는 식별자 전략
+    *   - Long형 + 대체키(시퀀스 or uuid) + 키 생성전략 사용
+    * - @Id : 직접 할당
+    * - @GeneragtedValue : 자동 생성
+    *       - @GeneratedValue(strategy = GenerationType.IDENTITY) :
+    *           - IDENTITY 는 나는 모르겠고 DB 야 너가 알아서 넣어! 방언을 mysql 로 사용하면 AUTO_INCREAMENT
+    *           - IDENTITY 는 id 값을 넣지 않고 db insert 를 하는데 db 에서 null 로 insert 쿼리가 날라오면 그때 db에서 셋팅해준다
+    *           - 뭐가 문제냐면 id 값을 알 수 있는 시점이 db 에 들어가야지만 알 수 있다.
+    *             JPA 는 영속성컨텍스트에서 관리되려면 무조건 pk 값일 있어야 되는데 IDENTITY 를 하게 되면 db 에 들어가야 안다.
+    *           - 영속 상태가 됐다는 건 영속성 컨텍스트 안에 1차 캐시가 있다는 뜻이다. 1차 캐시 안에 @Id 인 PK 값이 있는데
+    *             IDENTITY는 DB에 넣기 전까지 모른다. 그래서 JPA 입장에서는 울며겨자먹기로 em.persist() 를 호출하는 시점에 바로 데이터베이스에
+    *             insert 쿼리를 날린다. (보통 커밋하는 시점에 insert 쿼리가 날라간다. )
+    *           - 정리하면 IDENTITY 전략에서는 기존에 쿼리를 모아서 db 에 넣는 방법을 쓰지 못한다.
+    *- 테이블 맵핑 전력이 있는데 잘 안쓴다. 일단 알고만 있자.
+     */
     // pk로 맵핑
     @Id
+    @GeneratedValue(strategy = GenerationType.SEQUENCE,
+                    generator = "MEMBER_SEQ_GENERATOR" )
     private Long id;
 
     /*
@@ -31,7 +60,7 @@ public class Member {
     */
 
     // 객체에는 username, db에는 name 으로 쓰고 싶을때 name 이라는 속성을 사용하면 된다.
-    @Column(name = "name", unique = true)
+    @Column(name = "name")
     private String username;
 
     private Integer age;
@@ -40,7 +69,7 @@ public class Member {
     @Enumerated(EnumType.STRING)
     private RoleType roleType;
     /*
-    * - EnumType.ORIDNARY 는 enum 의 순서를 db 에 넣는다. (사용X) / Integer type 으로 생성
+    * - EnumType.ORIDNARY 는 enum 의 순서를 db 에 넣는다. (사용X) / Integer type 으로 0부터 생성되는데 내가 원하는 순서대로 안 들어간다.
     * - EnumType.ORIDNARY 는 이름을 db 에 넣는다.
     * */
 
