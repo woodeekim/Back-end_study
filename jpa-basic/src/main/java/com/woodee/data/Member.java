@@ -7,7 +7,8 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.Date;
 
-@Entity
+// 다른 패키지에 있는 Member 엔티티지만 Jpa 는 @Entity 로 판단(?) 하기 때문에 중복된 엔티티라고 나와서 주석처리
+/*@Entity*/
 @SequenceGenerator(
         name= "MEMBER_SEQ_GENERATOR",
         sequenceName = "MEMBER_SQL", // 맵핑할 데이터베이스 시퀀스 이름
