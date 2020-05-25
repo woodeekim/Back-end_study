@@ -7,6 +7,7 @@ import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.EntityTransaction;
 import javax.persistence.Persistence;
+import java.util.List;
 
 public class ExampleBasicMapping {
     public static void main(String[] args) {
@@ -50,11 +51,17 @@ public class ExampleBasicMapping {
             em.clear();
 
             Member2 findMember = em.find(Member2.class, member.getId());
-            Team2 findTeam = findMember.getTeam(findMember);
+            //양방향 연관관계
+            //사실 객체는 가급적이면 단방향이 좋다.
+            List<Member2> members = findMember.getTeam().getMembers();
 
             System.out.println("===============================");
-            System.out.println("findTeam >>" + findTeam.getName());
+            for (Member2 m : members) {
+                System.out.println("m = " + m.getUsername());
+            }
             System.out.println("===============================");
+
+
 
 
             tx.commit();

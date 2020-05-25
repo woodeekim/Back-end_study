@@ -36,7 +36,7 @@ public class Member2 {
         this.username = username;
     }
 
-    public Team2 getTeam(Member2 findMember) {
+    public Team2 getTeam() {
         return team;
     }
 
