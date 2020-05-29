@@ -1,4 +1,4 @@
-### 람다
+### 람다(Lambda)
 - 람다식은 간단히 말해서 메서드를 하나의 식으로 표현한 것
 - 함수를 간략하면서도 명확한 식으로 표현할 수 있게 해줌
 - 메서드를 람다식으로 표현하면 메서드의 이름과 반환값이 없어지므로,
@@ -84,3 +84,40 @@ Object obj = (Object)( () -> {}); // 에러. 함수형 인터페이스로만 형
 // Object 타입으로 형변환하려면, 함수형 인터페이스로 변환 후 Object 로 변환
 Object obj = (Object)((Myfunction)( () -> {})).toString();
 ```
+### java.util.function 패키지
+- 일반적으로 자주 쓰이는 형식의 메서드를 함수형 인터페이스로 미리 정의해 놓았다.
+- 가장 기본적인 함수형 인터페이스
+```java
+//java.lang.Runnable 
+void run()
+
+//Supplier<T>
+T get()
+
+//Consumer<T>
+void accept(T t)
+
+//Function<T,R>
+R apply(T t)
+
+//Predicate<T>
+boolean test(T t)
+```
+Predicate(조건식의 표현에 사용)
+- Function의 변형으로 Predicate가 있는데, 반환값이 boolean이라는 것만 제외하면 Function과 동일하다.
+```java
+
+Predicate<String> isEmptyStr = s => s.length == 0;
+String s = "";
+//if (s.length() == 0)
+if (isEmptyStr.test(s)) {
+    System.out.println("This is an empty String");
+}
+```
+매개변수가 두 개인 함수형 인터페이스
+- 매개변수의 개수가 2개인 함수형 인터페이스는 이름 앞에 접두사 Bi가 붙는다.
+UnaryOperator와 BinaryOperator
+- Function의 또 다른 변형으로 UnaryOperator와 BinaryOperator가 있다.
+컬렉션 프레임웍과 함수형 인터페이스
+- LambdaEx4.java
+
