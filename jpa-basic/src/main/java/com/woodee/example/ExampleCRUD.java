@@ -9,7 +9,7 @@ import javax.persistence.Persistence;
 import java.util.List;
 
 public class ExampleCRUD {
-    /*public static void main(String[] args) {
+    public static void main(String[] args) {
         // 엔티티 매니저 팩토리는 하나만 생성해서 애플리케이션 전체에 공유
         EntityManagerFactory emf = Persistence.createEntityManagerFactory("hello"); //persistence.xml > persistence-unit 이름
         // 엔티티 매니저는 쓰레드간에 공유 X (사용하고 버려야한다.)
@@ -21,12 +21,12 @@ public class ExampleCRUD {
         try {
 
 
-*//*            Member member1 = new Member();
+            Member member1 = new Member();
             member1.setId(4L);
-            member1.setUsername("KKK");*//*
+            member1.setUsername("KKK");
 
 
-            *//* 검색 *//*
+            //검색
             // Member findMember = em.find(Member.class, 4L); // 가장 단순한 조회 방법
             // <-> 검색, 조건이 필요한 경우 JPQL 이용
 
@@ -43,13 +43,12 @@ public class ExampleCRUD {
                 System.out.println("member.name = " + member.getUsername());
             }
 
-            *//*
-            수정
-            findMember.setName("김근본");
 
-            삭제
-            em.remove(findMember);
-            *//*
+            //수정
+            //findMember.setName("김근본");
+
+            //삭제
+            //em.remove(findMember);
 
             // em.persist(member);
             tx.commit();
@@ -62,9 +61,5 @@ public class ExampleCRUD {
             em.close();
         }
         emf.close();
-
-
-
-
-    }*/
+    }
 }

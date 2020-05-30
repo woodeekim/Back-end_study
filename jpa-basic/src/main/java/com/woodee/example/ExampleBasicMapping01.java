@@ -9,7 +9,7 @@ import javax.persistence.EntityTransaction;
 import javax.persistence.Persistence;
 import java.util.List;
 
-public class ExampleBasicMapping {
+public class ExampleBasicMapping01 {
     public static void main(String[] args) {
         /* 2020-05-24 연관관 맵핑 기초 - 단방향 연관관계*/
 
