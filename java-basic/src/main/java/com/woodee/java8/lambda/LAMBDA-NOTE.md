@@ -120,4 +120,9 @@ UnaryOperator와 BinaryOperator
 - Function의 또 다른 변형으로 UnaryOperator와 BinaryOperator가 있다.
 컬렉션 프레임웍과 함수형 인터페이스
 - LambdaEx4.java
+- LambdaEx5.java
+기본형을 사용하는 함수형 인터페이스
+- LambdaEx6.java
+
+
 
