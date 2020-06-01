@@ -123,6 +123,51 @@ UnaryOperator와 BinaryOperator
 - LambdaEx5.java
 기본형을 사용하는 함수형 인터페이스
 - LambdaEx6.java
+Function의 합성과 Predicate의 결합
+- LambdaEx7.java
+메서드 참조
+- 람다식으로 메서드를 간결하게 표현할 수 있다.
+- 람다식이 하나의 메서드만 호출하는 경우에 메서드 참조라는 방법으로 더 간략하게 할 수 있다.
+- 하나의 메서드만 호출하는 람다식은 '클래스이름::메서드이름' 또는 '참조변수::메서드이름' 으로 바꿀 수 있다.
+```java
+//메서드 참조전
+Function<String, Integer> f = (String s) -> Integer.parseInt(s);
+//메서드 참조후
+Function<String, Integer> f = Integer::parseInt;
 
+//메서드 참조전
+BiFunction<String, String, Boolean> f = (s1, s2) -> s1.equlas(s2);
+//메버스 참조후
+BiFunction<String, String, Boolean> f = String::equlas;
+
+//메서드 참조전
+MyClass obj = new MyClass();
+Function<String, Boolean> f = (x) -> obj.equlas(x);
+//메서드 참조후
+Function<String, Boolean> f2 = obj::equlas;
+
+```
+생성자의 메서드 참조
+```java
+//메서드 참조전
+Supplier<MyClass> s = () -> new MyClass();
+//메서드 참조후
+Supplier<MyClass> s2 = () -> MyClass::new;
+
+//메서드 참조전
+Function<Integer, MyClass> f = (i) -> new MyClass(i);
+//메서드 참조후
+Function<Integer, MyClass> f2 = MyClass::new;
+
+//메서드 참조전
+BiFunction<Integer, String, MyClass> bf = (i, s) -> new MyClass(i, s);
+//메서드 참조후
+BiFunction<Integer, String, MyClass> bf2 = MyClass::new;
+
+//메서드 참조전
+Function<Integer, int[]> f = x -> new int[x];
+//메서드 참조후
+Function<Integer, int[]> f2 = int[]::new;
+```
 
 
