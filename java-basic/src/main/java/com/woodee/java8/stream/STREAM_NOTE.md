@@ -64,8 +64,74 @@ stream.forEach(System.out::println);
 stream.distict().limit(5).sorted().forEach(System.out::println);
      중간 연산   중간 연산   중간 연산  최종 연산
 ```
+- 중간 연산은 map() 과 flatMap(), 최종 연산은 reduce() 와 collect()가 핵심이다.
 지연된 연산
+- 스트림 연산에서 한가지 중요한 점은 최종 연산이 수행되기 전까지는 중간 연산이 수행되지 않는다.
+- 중간연산인 distinct()나 sort()같은 중간 연산을 호출해도 즉각적인 연산이 수행되는 것은 아니다.
+- 중간 연산을 호출하는 것은 단지 어떤 작업이 수행되어야하는지를 지정해주는 것이다.
+- 최종 연산이 수행되어야 비로소 스트림의 요소들이 중간 연산을 거쳐 최종 연산에서 소모된다.
 
 Stream<Integer>와 IntStream
+- 일반적으로 Stream<Integer> 대신 IntStream 을 사용하는 것이 더 효율적이다.
 
 병렬 스트림
+- 스트림으로 데이터를 다룰 때의 장점 중 하나가 바로 병렬 처리가 쉽다.
+```java
+int sum = strStream.parallel() // strStream을 병렬 스트림으로 전환
+                    .mapToInt(s -> s.length() )
+                    .sum();
+```
+
+컬렉션
+- 컬렉션의 최고 조상인 Collection 에 stream() 이 정의되어 있다.
+    - 그래서 자손인 List 와 Set 을 구현한 컬렉션 클래스들은 모두 이 메서드로 스트림을 생성할 수 있다.
+    - stream() 은 해당 컬렉션을 소스로 하는 스트림을 반환한다.
+```java
+Stream<T> Collection.stream();
+```
+```java
+// List 로부터 스트림을 생성하는 코드
+List<Integer> list = Arrays.asList(1,2,3,4); // 가변 인자
+Stream<Integer> intStream = list.stream(); // list를 소스로 하는 컬렉션 생성
+
+// 스트림의 모든 요소를 화면에 출력
+intStream.forEach(System.out::println); // 스트림의 모든 요소를 출력
+intStream.forEach(System.out::println); // 에러. 스트림이 이미 닫힘
+```
+
+배열
+- 배열을 소스로 하는 스트림을 생성하는 메서드는 Stream()과 Arrays 에 static 메서드로 정의되어 있다
+```java
+Stream<String> strStream = Stream.of("a", "b", "c"); 
+Stream<String> strStream = Stream.of(new String[]{"a","b","c"})
+```
+
+특정 범위의 정수
+```java
+IntStream intStream = IntStream.range(1,5); // 1,2,3,4
+IntStream intStream = IntStream.rangeClosed(1,5) // 1,2,3,4,5
+```
+
+임의의 수
+
+람다식 - iterate(), generate()
+- Stream 클래스의 iterate() 와 generate() 는 람다식을 매개변수로 받아서, 람다식에 의해 계산되는 값들을 요소로 하는 무한 스트림을 생성한다.
+```java
+Stream<Integer> evenStream = Stream.iterate(0, n->n+2); // 0,2,4,6 ...
+Stream<Double> randomStream = Stream.generate(Math::random); 
+```
+
+파일
+
+빈스트림
+```java
+Stream emptyStream = Stream.empty(); // empty() 는 빈스트림을 생성해서 반환
+long count = emptyStream.count(); //count의 값은 00
+```
+
+두 스트림의 연결
+```java
+String[] str1 = {"123","456"};
+String[] str1 = {"789","101112"};
+```
+
