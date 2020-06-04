@@ -113,6 +113,7 @@ IntStream intStream = IntStream.rangeClosed(1,5) // 1,2,3,4,5
 ```
 
 임의의 수
+- 난수를 생성하는데 사용하는 Random 클래스에는 인스턴스 메서드들이 포함되어 있다.
 
 람다식 - iterate(), generate()
 - Stream 클래스의 iterate() 와 generate() 는 람다식을 매개변수로 받아서, 람다식에 의해 계산되는 값들을 요소로 하는 무한 스트림을 생성한다.
@@ -122,7 +123,8 @@ Stream<Double> randomStream = Stream.generate(Math::random);
 ```
 
 파일
-
+- java.nio.file.Files 는 파일을 다루는데 유용한 메서드들을 제공한다.
+- list() 는 지정된 디텍토리에 있는 파일의 목록을 소스로 하는 스트림을 생성해서 반환한다.
 빈스트림
 ```java
 Stream emptyStream = Stream.empty(); // empty() 는 빈스트림을 생성해서 반환
@@ -133,5 +135,47 @@ long count = emptyStream.count(); //count의 값은 00
 ```java
 String[] str1 = {"123","456"};
 String[] str1 = {"789","101112"};
+Stream<String> strs1 = Stream.of(str1);
+Stream<String> strs2 = Stream.of(str2);
+Strema<String> strs3 = Stream.concat(strs1, strs2); // 두 스트림을 하나로 연결
 ```
 
+스트림 자르기 - skip(), limit()
+- skik(3)은 처음 3개의 요소를 건너뛰고, limit(5)는 스트림의 요소를 5개로 제한한다.
+```java
+IntStream intStream = IntStream.rangeClosed(1,10); // 1~10의 요소를 가진 스트림
+intStream.skip(3).limit(5).forEach(System.out::println); // 45678
+```    
+
+스트림의 요소 걸러내기 - filter(), distinct()
+- distinct()는 스트림에서 중복된 요소들을 제거하고, filter()는 주어진 조건에 맞지 않는 요소를 걸러낸다.
+```java
+// distinct()
+IntStream intStream = IntStream.of(1,2,2,3,3,3,4,5,5,6);
+intStream.distinct().forEach(System.out::println); // 123456
+
+// filter()
+IntStream intStream = IntStream.rangeClosed(1,10); // 1~10
+intStream.filter( i -> i%2 == 0).forEach(System.out::print); //246810
+```
+
+정렬 - sorted()
+- 스트림을 정렬할 때는 sorted() 를 사용
+```java
+Stream<String> strStream = Stream.of("dd", "aaa", "cc", "CC", "b");
+strStream.sorted().forEach(System.out::print); //CCaaabccdd
+```
+- sorted() 는 지정된 Comparator 로 스트림을 정렬한다.
+- Comparator 의 default 메서드
+- Comparator 의 static 메서드
+- 정렬에 사용되는 메서드의 개수가 많지만, 가장 기본적인 메서드는 comparing() 이다.
+
+```java
+// 학생 스트림을 반별, 성적순, 이름순으로 정렬하여 출력
+studentStream.sorted(Comparator.comparing(Student::getBan)
+                        .thenComparing(Student::getTotalScore)
+                        .thenComparing(Student::getName))
+                        .forEach(System.out::println);
+
+// StreamEx1.java 참고
+```
