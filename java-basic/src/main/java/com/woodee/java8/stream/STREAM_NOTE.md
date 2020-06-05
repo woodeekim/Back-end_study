@@ -179,3 +179,42 @@ studentStream.sorted(Comparator.comparing(Student::getBan)
 
 // StreamEx1.java 참고
 ```
+
+변환 - map()
+- 스트림의 요소에 저장된 값 중에서 원하는 필드만 뽑아내거나 특정 형태로 변환해야 할 때 map() 을 사용한다.
+```java
+// File 의 스트림에서 파일의 이름만 뽑아서 출력하고 싶을 때
+Stream<File> fileStream = Stream.of(New file("Ex.java"), new File("Ex1"),
+                           new File("Ex.bak"), new File("Ex.java"), new File("Ex.txt"));
+
+// map() 으로 Stream<File> 을 Stream<String> 으로 변환
+Stream<String> filenameStream = fileStream.map(File::getName);
+filenameStream.forEach(System.out::println); // 스트림의 모든 파일이름을 출력
+```
+- map() 도 중간 연산이므로, 연산결과는 String 을 요소로 하는 스트림이다.
+- map() 으로 Stream<File> 을 Stream<String> 으로 변환했다.
+- map() 도 filter() 처럼 하나의 스트림에 여러 번 적용할 수 있다.
+
+```java
+// File 의 스트림에서 파일의 확장자만을 뽑은 다음 중복을 제거해 출력
+fileStream.map(FIle::getName) // Stream<File> -> Stream<String>
+            .filter(s -> s.indexOf('.')!=-1) // 확장자가 없는 것은 제외
+            .map(s -> s.substring(s.substring(s.indexOf('.')+1))) //Stream<String> -> Stream<String>
+            .map(String::toUpperCase) // 모두 대문자로 변환
+            .distinct() // 중복 제거
+            .forEach(System.out::print);
+```
+
+조회 - peek()
+- 연산과 연산 사이에 올바르게 처리되었는지 확인하고 싶다면 peek() 를 사용
+- forEach() 와 달리 스트림의 요소를 소모하지 않으므로 연산 사이에 여러 번 끼워 넣어도 문제가 되지 않는다.
+```java
+fileStream.map(File::getName)   // Stream<File> -> Stream<String>
+            .filter(s -> s.indexOf('.')!==-1)    // 확장자가 없는 것은 제외
+            .peek(s -> System.out.println("filename = %s%n", s)) // 파일명을 출력
+            .map(s -> s.substring(s.indexOf('.')+1))
+            .peek(s -> System.out.printf("extension = %s%n", s)) // 확장자를 출력
+            .forEach(System.out::println);
+```
+- filter() 나 map() 의 결과를 확인할 때 유용하게 사용될 수 있다
+- StreamEx2.java 참고
