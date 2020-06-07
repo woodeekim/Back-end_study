@@ -1,6 +1,6 @@
 package com.woodee.example;
 
-import com.woodee.data.Member;
+import com.woodee.data.OldMember;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
@@ -21,9 +21,9 @@ public class ExampleCRUD {
         try {
 
 
-            Member member1 = new Member();
-            member1.setId(4L);
-            member1.setUsername("KKK");
+            OldMember oldMember1 = new OldMember();
+            oldMember1.setId(4L);
+            oldMember1.setUsername("KKK");
 
 
             //검색
@@ -33,14 +33,14 @@ public class ExampleCRUD {
             //JPQL 테이블이 아닌 객체를 대상으로 하는 객체지향쿼리
             //대상이 테이블이 아니라 Member 객체를 대상으로 가져온다.
             //JPQL 을 이용하면 페이징처리도 쉽게 가능하다. .setFirstResult() .setMaxResults() 이용
-            List<Member> resultList = em.createQuery("select m from Member as m", Member.class)
+            List<OldMember> resultList = em.createQuery("select m from Member as m", OldMember.class)
                     .setFirstResult(5)
                     .setMaxResults(10)
                     .getResultList();
 
             //iter~ 치면 자동으로 나온다.
-            for (Member member : resultList) {
-                System.out.println("member.name = " + member.getUsername());
+            for (OldMember oldMember : resultList) {
+                System.out.println("member.name = " + oldMember.getUsername());
             }
 
 

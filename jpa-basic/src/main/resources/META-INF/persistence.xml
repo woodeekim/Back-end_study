@@ -15,6 +15,7 @@
                 - 기존 test -> jpashop 변경
                 - JDBC URL에 jdbc:h2:~/test 라고 적어주시고 한번만 연결을 하면 데이터베이스 파일이 생성되면서 연결된다.
                 - 그리고 이후에는 jdbc:h2:tcp://localhost/~/test 로 접속해주세요.
+                - localhost:8082
             -->
             <property name="javax.persistence.jdbc.url"
                       value="jdbc:h2:tcp://localhost/~/jpashop"/> <!--H2의 JDBC URL 맞춰야함-->
@@ -24,7 +25,7 @@
             <property name="hibernate.format_sql" value="true"/>
             <property name="hibernate.use_sql_comments" value="true"/> <!--console 안에 쿼리 이전에 주석 나오는 옵션-->
             <property name="hibernate.hbm2ddl.auto"
-                      value="create"/> <!--데이터베이스 스키마 자동 생성하는 속성이다. create 는 기존테이블 삭제 후 다시 생성(DROP + CREATE) -->
+                      value="create-drop"/> <!--데이터베이스 스키마 자동 생성하는 속성이다. create 는 기존테이블 삭제 후 다시 생성(DROP + CREATE) -->
             <!--
             데이터베이스 스키마 자동 생성
             - 속성을 사용할 때 주의할 점은 데이터베이스 방언마다 다르기 때문에 방언에 따라서 확인해야한다.

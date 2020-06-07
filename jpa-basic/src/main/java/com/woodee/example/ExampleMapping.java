@@ -1,7 +1,7 @@
 package com.woodee.example;
 
 import com.woodee.RoleType;
-import com.woodee.data.Member;
+import com.woodee.data.OldMember;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
@@ -18,10 +18,10 @@ public class ExampleMapping {
         tx.begin();
 
         try {
-            Member member = new Member();
-            member.setUsername("허허");
-            member.setAge(28);
-            member.setRoleType(RoleType.GUEST);
+            OldMember oldMember = new OldMember();
+            oldMember.setUsername("허허");
+            oldMember.setAge(28);
+            oldMember.setRoleType(RoleType.GUEST);
 
             /*
             * 기본키 전략이 SEQUENCE 일 때 em.persist() 가 먼저 호출되지 않고 db 에서 id 값을 가져온 뒤 실행한다.
@@ -43,10 +43,10 @@ public class ExampleMapping {
             * */
 
             System.out.println("===============");
-            em.persist(member);
+            em.persist(oldMember);
 
             //
-            System.out.println("member.getId : "+member.getId());
+            System.out.println("member.getId : "+ oldMember.getId());
             System.out.println("===============");
             tx.commit();
         } catch (Exception e) {

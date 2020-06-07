@@ -19,9 +19,9 @@ public class JpaMain {
 
         try {
             //1.주문
-            Order order = new Order();
+            //Order order = new Order();
             //연관관계 메서드
-            order.addOrderItem(new OrderItem());
+            //order.addOrderItem(new OrderItem());
             tx.commit();
         } catch (Exception e) {
             tx.rollback();

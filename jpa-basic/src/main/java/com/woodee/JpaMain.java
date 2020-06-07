@@ -14,22 +14,15 @@ public class JpaMain {
         EntityManager em = emf.createEntityManager();
         EntityTransaction tx = em.getTransaction();
         tx.begin();
-
         try {
             Member member = new Member();
-            member.setUsername("우디");
-            member.setRoleType(RoleType.USER);
-
-            System.out.println("아아!?");
-            em.persist(member);
-
-
+            member.setUsername("새로운테스트");
             tx.commit();
         } catch (Exception e) {
             tx.rollback();
         } finally {
             em.close();
         }
-            emf.close();
+        em.close();;
     }
 }
