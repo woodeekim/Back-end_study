@@ -218,3 +218,13 @@ fileStream.map(File::getName)   // Stream<File> -> Stream<String>
 ```
 - filter() 나 map() 의 결과를 확인할 때 유용하게 사용될 수 있다
 - StreamEx2.java 참고
+
+mapToInt(), mapToLong(), mapToDouble()
+- map() 은 연산의 결과로 Stream<T>타입의 스트림을 반환하는데, 스트림의 요소를 숫자로 변환하는 경우 IntStream 과 같은 기본형 스트림으로 변환하는 것이 더 유용할 수 있다.
+- count() 메서드만 지원하는 Stream<T> 와 달리 IntStream 과 같은 기본형 스트림은 숫자를 다루는데 편리한 메서드들을 제공한다.
+```java
+int sum() // 스트림의 모든 요소의 총합
+OptionalDouble average() // sum() / (double)count()
+OptionalInt max() // 스트림의 요소 중 제일 큰 값
+OptionalInt min() // 스트림의 요소 중 제일 작은 값
+```
