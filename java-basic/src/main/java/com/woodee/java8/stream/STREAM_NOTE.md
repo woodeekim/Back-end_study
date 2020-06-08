@@ -223,8 +223,37 @@ mapToInt(), mapToLong(), mapToDouble()
 - map() 은 연산의 결과로 Stream<T>타입의 스트림을 반환하는데, 스트림의 요소를 숫자로 변환하는 경우 IntStream 과 같은 기본형 스트림으로 변환하는 것이 더 유용할 수 있다.
 - count() 메서드만 지원하는 Stream<T> 와 달리 IntStream 과 같은 기본형 스트림은 숫자를 다루는데 편리한 메서드들을 제공한다.
 ```java
+// 이 연산자들은 최종연산이기 때문에 호ㅜㄹ 후에 스트림이 닫힌다
 int sum() // 스트림의 모든 요소의 총합
 OptionalDouble average() // sum() / (double)count()
 OptionalInt max() // 스트림의 요소 중 제일 큰 값
 OptionalInt min() // 스트림의 요소 중 제일 작은 값
+```
+- sum() 과 average() 를 호출해야할 때, 스트림을 또 생성해야하는 번거로움을 줄이기 위해 summaryStatistics()라는 메서드가 제공된다.
+- IntStream을 Stream<T> 로 변환할 때는 mapToObj() 를 이용
+- Stream<Integer> 로 변환할 때는 boxed() 를 사용
+
+```java
+IntStream intStream = new Random().ints(1,46) // 1~45 사이의 정수(46은 포함안됨)
+Stream<String> lottoStream = intStream.distinct().limit(6).sorted()
+                                .mapToObj(i -> i+ ",") // 정수를 문자열로 변환
+lottoStream.forEach(System.out::println); // 12, 14, 20, 23, 26, 29
+```
+
+flatMap() - Stream<T[]> 를 Stream<T> 로 변환
+- 스트림의 요소가 배열이거나 map() 의 연산결과가 배열인 경우, 스트림의 타입이 Stream<T[]>인 경우 Stream<T> 로 다루는 것이 더 편리할 때가 있다.
+    - 그럴 때 map() 대신 flatMap() 을 사용하면 된다.
+```java
+Stream<String[]> strArrStrm = Stream.of(
+        new String[]{"abc", "def", "ghi"},
+        new String[]{"ABC", "GHI", "JKLMN"}        
+);
+
+// 각 요소의 문자열들을 합쳐서 문자열이 요소인 스트림인 Stream<String> 으로 만듬
+
+Stream<Sreram<String>> strStrStrm = strArrStrm.map(Arrays::stream)
+// -> Stream<String[]> 을 'map(Arrays::stream) 으로 변환한 결과는 Stream<String> 이 아닌, Stream<Strema<String>>이다.
+// -> 이때 flatMap() 을 사용
+
+Stream<Stream<String>> strStrStrm = strArrStrm.flatMap(Arrays::stream);
 ```
