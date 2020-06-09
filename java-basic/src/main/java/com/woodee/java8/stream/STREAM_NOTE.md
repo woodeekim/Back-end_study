@@ -257,3 +257,72 @@ Stream<Sreram<String>> strStrStrm = strArrStrm.map(Arrays::stream)
 
 Stream<Stream<String>> strStrStrm = strArrStrm.flatMap(Arrays::stream);
 ```
+Optional<T> 와 OptionalInt
+- Optional<T> 는 제네릭 클래스로 T타입의 객체를 감싸는 래퍼 클래스이다.
+- Optional 타입의 객체에는 모든 타입의 참조변수를 담을 수 있다.
+
+Optional 객체 생성
+- Optional 객체를 생성할 때는 of() 또는 ofNullable() 을 사용한다
+```java
+String str = "abc";
+Optional<String> optVal = Optional.of(str);
+Optional<String> optVal = Optional.of("abc");
+Optional<String> optVal = Optional.of(new String("abc"));
+```
+- 참조변수의 값이 null 일 가능성이 있으면 of() 대신 ofNullable() 사용
+    - of() 는 매개변수의 값이 null 이면 NullPointException 이 발생하기 때문이다.
+```java
+Optional<String> optVal = Optional.of(null); // NullpointException 발생
+Optional<String> optVal = Optional.ofNullable(null); // OK
+```
+- Optional<T> 타입의 참조변수를 기본값으로 초기화할 때는 empty() 를 사용
+```java
+Optional<String> optVal = null; // 널로 초기화
+Optional<String> optVal = Optional.<String>empty() // 빈 객체로 초기화
+```
+
+Optional 객체의 값 가져오기
+- Optional 객체에 저장된 값을 가져올 때는 get() 를 사용
+- 값이 null 일 때는 NoSuchElementException 발생
+    - 이를 대비해서 orElse() 로 대체할 값을 지정할 수 있다.
+```java
+Optional<String> optVal = Optional.of("abc");
+String str1 = optVal.get();  //optVal 에 저장된 값을 반환. null 이면 예외발생
+String str2 = optVal.orElse(""); // optVal 에 저장된 값이 null 일 때는, ""를 반환
+```
+
+- orElse() 의 변형으로 null 을 대체할 값을 반환하는 람다식을 지정할 수 있는 orElseGet() 과 null 일 때 지정된 예외를 발생시키는 orElseThrow() 가 있다.
+```java
+String str3 = optVal2.orElseGet(String::new); // () -> new String() 와 동일
+String str3 = optVal2.orElseThrow(NullPointException::new); // 널이면 예외발생
+```
+
+- Stream 처럼 Optional 객체에도 filter(), map(), flatMap() 을 사용할 수 있다.
+- isPresent() 는 Optional 객체의 값이 null 이면 false 를 , 아니면 true 를 반환한다.
+- ifPresent(Consumer<T> block) 은 값이 있으면 주어진 람다식을 실행, 없으면 아무일도 하지 않는다.
+```java
+// 기존
+if(str!=null) {
+    System.out.println(str);
+}
+// Optional 사용
+if(Optional.ofNullable(str).isPresent()) {
+    System.out.println(str);
+}
+
+// ifPresent() 를 이용하면 더 간단히 할 수 있다.
+Optional.ofNullable(str).ifPresent(System.out::println);
+```
+
+- ifPresent() 는 Optional<T> 를 반환하는 최종 연산과 잘 어울린다.
+```java
+// Stream 클래스에 정의된 메서드 중 Optional<T> 를 반환하는 메서드
+Optional<T> findAny()
+Optional<T> findFist()
+Optional<T> max(Comparator<? super T> comparator)
+Optional<T> min(Comparator<? super T> comparator)
+Optional<T> reduce(BinaryOperator<T> accumlator)
+```
+
+OptionalInt, OptionalLong, OptionalDouble
+
