@@ -325,4 +325,44 @@ Optional<T> reduce(BinaryOperator<T> accumlator)
 ```
 
 OptionalInt, OptionalLong, OptionalDouble
+- OptionalEx1.java  
+
+스트림의 최종 연산
+- 최종 연산은 스트림의 요소를 소모해서 결과를 만들어낸다.
+- 최종 연산후에는 스트림이 닫히게 되고 더 이상 사용할 수 없다.
+- 최종 연산의 결과는 스트림 요소의 합과 같은 단일 값이거나 스트리의 요소가 담긴 배열 또는 컬렉션일 수도 있다.
+
+forEach()
+- forEach() 는 peek() 와 달리 스트림의 요소를 소모하는 최종연산이다.
+    - 반환 타입이 void 이므로 스트림의 요소를 출력하는 용도로 많이 사용된다.
+    
+조건 검사 - allMatch(), anyMatch(), noneMatch(), findFirst(), findAny()
+- 스트림의 요소에 대해 지정된 조건에 모든 요소가 일치하는 지, 일부가 일치하는지, 어떤 요소도 일치하지 않는지 확인하는 메서드들이다.
+- 이 메서드들은 모두 매개변수로 Predicate 를 요구하며, 연산결과로 boolean 을 반환한다.
+```java
+// 학생들의 성적 정보 스트림에서 총점이 100 이하인 학생이 있는지 확인
+boolean noFaild = stuStream.anyMatch(s -> s.getTotalScore()<=100);
+```
+- 스트림의 요소 중 조건에 일치하는 첫 번째 것을 반환하는 findFirst()
+    - 주로 filter() 와 함께 사용되며 조건에 맞는 스트림의 요소가 있는지 확인한다.
+    - 병렬 스트림인 경우에는 findFirst() 대신 findAny() 를 사용한다.
+```java
+Optional<Student> stu = stuStream.filter(s -> s.getTotalScore() <= 100).findFirst();
+Optional<Student> stu = parallelStream.filter(s -> s.getTotalScore() <=100).findAny();
+
+// 스트림의 요소가 없을 때 비어있는 Optional 객체를 반환하는데 내부적으로 null 저장
+```
+
+통계 - count(), sum(), average(), max(), min()
+- IntStream 과 같은 기본형 스트림에는 스트림의 요소들에 대한 통계 정보를 얻을 수 있는 메서드들이 있다.
+    - 그러나 기본형 스트림이 아닌 경우에는 통계와 관련된 메서드들이 count(), max(), min() 3개뿐이다.
+    - 그래서 reduce() 와 collet() 를 사용해서 통계 정보를 얻는다.
+
+리듀싱 - reduce()
+- 스트림의 요소를 줄여나가면서 연산을 수행하고 최종결과를 반환한다.
+- 매개변수의 타입이 BinaryOperator<T> 
+- 처음 두 요소를 가지고 연산한 결과를 가지고 그 다음 요소와 연산한다.
+- 앞서 본 최종 연산 count() 와 sum() 등은 내부적으로 모두 reduce() 를 이용한 것이다.
+- reduce() 는 초기값(identity) 와 어떤 연산(Binary Operator) 으로 스트림의 요소를 줄여나갈 것인지만 결정하면 된다.
+- StreamEx5.java
 
