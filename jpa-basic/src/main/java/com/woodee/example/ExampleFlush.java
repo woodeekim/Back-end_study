@@ -10,7 +10,7 @@ public class ExampleFlush {
         tx.begin();
 
         try {
-            Member member = new Member(5L,"member5");
+            Member member = new Member(5L"member5");
 
             // 영속성 컨텍스트 안에 쿼리가 담긴다.
             em.persist(member);
