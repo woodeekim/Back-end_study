@@ -366,3 +366,48 @@ Optional<Student> stu = parallelStream.filter(s -> s.getTotalScore() <=100).find
 - reduce() 는 초기값(identity) 와 어떤 연산(Binary Operator) 으로 스트림의 요소를 줄여나갈 것인지만 결정하면 된다.
 - StreamEx5.java
 
+collect()
+- 스트림의 최종 연산중에서 가장 복잡하면서도 유용하게 활용될 수 있는 것이 collect() 이다.
+- collect() 는 스트림의 요소를 수집하는 reducing 과 유사하다.
+- collect() 가 스트림의 요소를 수집하려면, 어떻게 수짖ㅂ할 것인가에 대한 방법이 정의되어 있어야 한다.
+    - 이 방법을 정의한 것이 바로 컬렉터(collector) 이다.
+    - collector 는 Collector 인터페이스를 구현
+```java
+collect() 스트림의 최종연산, 매개변수로 컬렉터 필요
+Collector 컬렉터는 Collector 인터페이스를 구현해야한다.
+Collectors statuc 메서드로 미리 작성된 컬렉터를 제공하는 클래스이다.
+```
+
+스트림을 컬렉션과 배열로 변환 - toList(), toSet(), toMap(), toCollection(), toArray()
+- 스트림의 모든 요소를 컬렉션에 수집하려면, Collectors 클래스의 toList() 메서드를 사용
+- List 와 Set 이 아닌 특정 컬렉션을 지정하려면, toCollection() 에 해당 컬렉션의 생성자 참조를 매개변수로 넣어주면 된다.
+```java
+List<String> names = stuStream.map(Student::getName)
+                               .collect(Collectors.toList());
+ArrayList<String> list = names.stream()
+                                .collect(Collectors.toCollection(ArrayList::new));
+```
+
+통계 - counting(), summingInt(), averagingInt(), maxBy(), minBy()
+리듀싱 - reducing()
+문자열 결합 - joining()
+- 문자열 스트림의 모든 요소를 하나의 문자열로 연결해서 반환한다.
+    - 구분자를 지정해줄 수 있고 접두사 및 접미사 지정도 가능하다.
+- 스트림의 요소가 String, StringBuffer 처럼 CharSequence 의 자손인 경우에만 결합이 가능하다.
+    - 스트림의 요소가 문자열이 아닌 경우 map() 를 이용해서 스트림의 요소를 문자열로 변환해야 한다.
+```java
+String studentNames = studentStream.map(Student::getName).collect(Collectors.joining());
+```
+
+그룹화와 분할 - groupingBy(), partitioningBy()
+- 그룹화는 스트림의 요소를 특정 기준으로 그룹화하는 것을 의미한다.
+- 분할은 스트림의 요소를 두 가지, 지정된 조건에 일치하는 그룹과 일치하지 않는 그룹으로의 분할을 의미한다.
+- groupingBy() 는 스트림의 요소를 Function 으로, partitioningBy() 는 Predicate 로 분류한다.
+- 스트림을 두 개의 그룹으로 나눠야 한다면, 당연히 partitioningBy() 로 분할하는 것이 더 빠르다.
+- 그룹화와 분할의 결과는 Map 에 담겨 반환한다.
+
+groupingBy() 에 의한 분류
+- groupingBy() 로 그릅화를 하면 기본적으로 List<T> 에 담는다.
+
+
+
