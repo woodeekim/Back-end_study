@@ -1,14 +1,15 @@
-package jpabook.shop;
+//package jpabook.shop;
 
 
-import jpabook.shop.domain.Order;
-import jpabook.shop.domain.OrderItem;
+//import jpabook.shop.domain.Order;
+//import jpabook.shop.domain.OrderItem;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.EntityTransaction;
 import javax.persistence.Persistence;
 
+/*
 public class JpaMain {
     public static void main(String[] args) {
         EntityManagerFactory emf = Persistence.createEntityManagerFactory("hello");
@@ -31,3 +32,4 @@ public class JpaMain {
         emf.close();
     }
 }
+*/

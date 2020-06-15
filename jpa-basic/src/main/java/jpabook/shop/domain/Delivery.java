@@ -1,3 +1,4 @@
+/*
 package jpabook.shop.domain;
 
 import javax.persistence.Entity;
@@ -20,3 +21,4 @@ public class Delivery {
     private Order order;
 
 }
+*/

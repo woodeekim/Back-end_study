@@ -1,11 +1,3 @@
-package jpabook.shop.domain;
-
-import javax.persistence.*;
-import java.util.ArrayList;
-import java.util.List;
-
-@Entity
-public class Member  {
 
 /*
    getter 같은 경우 만들어주면 상관없지만 setter 같은 경우에느 고민해 볼 필요가 있다.
@@ -25,6 +17,17 @@ public class Member  {
     - 객체 그래프 탐색이 불가능
     - 참조가 없으므로 UML 도 잘못됨
  */
+
+/*
+package jpabook.shop.domain;
+
+import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
+
+@Entity
+
+public class Member  {
 
     // @GeneratedValue(strategy = GenerationType.AUTO) 기본값이 Auto 이다.
     @Id @GeneratedValue
@@ -81,3 +84,5 @@ public class Member  {
         this.zip = zip;
     }
 }
+
+*/

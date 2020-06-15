@@ -1,3 +1,4 @@
+/*
 package jpabook.shop.domain;
 
 import javax.persistence.*;
@@ -72,3 +73,4 @@ public class Order {
 
 
 }
+*/

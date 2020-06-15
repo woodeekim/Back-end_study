@@ -1,3 +1,4 @@
+/*
 package jpabook.shop.domain;
 
 import javax.persistence.*;
@@ -27,3 +28,4 @@ public class Category {
     )
     private List<Item> items = new ArrayList<>();
 }
+*/
