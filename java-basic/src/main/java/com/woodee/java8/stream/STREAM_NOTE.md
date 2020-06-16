@@ -409,5 +409,14 @@ String studentNames = studentStream.map(Student::getName).collect(Collectors.joi
 groupingBy() 에 의한 분류
 - groupingBy() 로 그릅화를 하면 기본적으로 List<T> 에 담는다.
 
+Collector 구현하기
+- CollectorEx1.java
+- 컬렉터를 작성하다는 것은 Collector 인터페이스를 구현한다는 것을 의미한다.
+```java
+supplier() 작업 결과를 저장할 공간을 제공
+accumulator() 스트림의 요소를 수집(collect)할 방법을 제공
+combiner() 두 저장공간을 병합할 방법을 제공(병렬 스트림)
+finisher() 결과를 최종적으로 변환할 방법을 제공
+```
 
 
