@@ -35,6 +35,7 @@ public class ArrayListEx01 {
         print(listOne, listTwo);
 
         // list2에서 list1에 포함된 객체들을 삭제한다.
+        // 변수 i를 증가시켜가면서 삭제하면, 한 요소가 삭제될 때마다 빈 공간을 채우기 위해 나머지 요소들이 자리이동을 하기 때문에 올바른 결과를 얻을 수 없다.
         for (int i = listTwo.size()-1; i >= 0; i--) {
             if (listOne.contains(listTwo.get(i))){
                 listTwo.remove(i);
