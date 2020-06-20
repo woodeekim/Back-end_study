@@ -27,3 +27,94 @@ Map
     - 1.데이터의 저장순서가 유지된다.
     - 2.중복을 허용한다.
 - ArrayList는 Object배열을 이용해서 데이터를 순차적으로 저장한다.
+
+### LinkedList
+- 배열은 가장 기본적인 형태의 자료구조로 구조가 간단하며 사용하기 쉽고 데이터를 읽어 오는데 걸리는 시간이 가장 빠르다는 장점이 있다.
+- 단점은 크기를 변경할 수 없다는 것과 비수차적인 데이터의 추가 또는 삭제에 시간이 많이 걸린다.
+    - 배열의 단점을 보완하기 위해 링크드 리스트라는 자료거조가 고안되었다.
+ - 링크드 리스트는 불여속적으로 존재하는 데이터를 서로 연결한 형태로 구성되어 있다.
+
+### Stack과 Queue
+### Iterator, ListIterator, Enumeration
+- Iterator, ListIterator, Enumeration은 모두 컬렉션에 저장된 요소를 접근하는데 사용되는 인터페이스다.
+- Enumeration은 Iterator의 구버전이며 ListIterator는 Iterator의 기능을 향상 시킨 것이다.
+
+Iterator
+- 컬렉션 프레임워크에서는 컬렉션에 저장된 요소들을 읽어오는 방법을 표준화하였다.
+- 컬렉션에 저장된 각 요소에 접근하는 기능을 가진 Iterator 인터페이스를 정의하고, Collection 인터페이스에는 Iterator를 반환하는 iterator()를 정의하고 있다.
+```java
+// ArrayList에 저장된 요소들을 출력
+List list = new ArrayList();
+Iterator it = list.iterator();
+while(it.hasNext()) {
+    System.out.println(it.next());
+}
+```
+- Iterator를 이용해서 컬렉션의 요소를 읽어오는 방법을 표준화했기 때문에 코드의 재사용성을 높이는 것이 가능하다.
+    - 이처럼 공통 인터페이스를 정의해서 표준을 정의하고 구현하여 표준을 따르도록 함으로써 코드의 일관성을 유지하여 재사용성을 극대화하는 것이 객체지향 프로그래밍의 중요한 목적 중 하나이다.
+- Map인터페이스를 구현한 컬렉션 클래스는 키와 값을 쌍으로 저장하고 있기 때문에 iterator()를 직접 호출할 수 없고, 그 대신 keySet()이나 entrySet()과 같은 메서드를 통해서 키와 값을 각각 따로 Set의 형태로 얻어 온 후에 다시 iterator ()를 호출해야한다.
+
+ListIterator와 Enumeration
+- Enumeration은 컬렉션 프레임워크가 만들어지기 이전에 사용하던 것이며 Iterator의 구버전이다.
+- Enumeration 대신 Iterator를 사용
+- ListIterator는 Iterator를 상속받아서 기능을 추가한 것이다.
+    - 컬렉션의 요소에 접근할 때 Iterator는 단방향으로 이동할 수 있는 데 반해 ListIterator는 양방향으로의 이동이 가능하다.
+    - ArrayList나 LinkedList와 같이 List인터페이스를 구현한 컬렉션에서만 사용할 수 있다.
+
+### Arrays
+- Arrays 클래스에는 배열을 다루는데 유용한 메서드가 정의되어 있다.
+
+배열의 복사 - copyOf(), copyOfRange()
+- copyOf()는 배열 전체를 복사한다.
+- copyOfRange() 배열의 일부를 복사해서 새로운 배열을 만들어 반환한다.
+```java
+int[] arr = {0,1,2,3,4};
+int[] arr2 = Arrays.copyOf(arr, arr.length); // [0,1,2,3,4]
+int[] arr3 = Arrays.copyOf(arr, 3); // [0,1,2]
+int[] arr4 = Arrays.copyOf(arr, 7); //  [0,1,2,3,4,0,0]
+int[] arr5 = Arrays.copyOfRange(arr, 2, 4); //  [2,3] <- 4는 불포함
+Int[] arr6 = Arrays.copyOfRange(arr, 0, 7); // [0,1,2,3,4,0,0]
+```
+
+배열 채우기 - fill(), setAll()
+- fill()은 배열의 모든 요소를 지정된 값으로 채운다.
+- setAll()은 배열을 채우는데 사용할 함수형 인터페이스를 매개변수로 받는다.
+    - 이 메서드를 호출할 때는 함수형 인터페이스를 구현한 객체를 매개변수로 지정하던가 아니면 람다식을 지정해야한다.
+```java
+int[] arr = new int[5];
+Arrays.fill(arr, 9); // [9,9,9,9,9]
+Arrays.setAll(arr, () => (int)(Math.random() *5)+1); // arr = [1,5,2,1,1]
+```
+
+배열의 정렬과 검색 - sort(), binarySearch()
+- sort()는 배열을 정렬할 때 사용한다.
+- 배열에 저장된 요소를 검색할 때는 binarySearch()를 사용한다
+    - binarySearch()는 배열에서 지정된 값이 저장된 위치를 찾아서 반환하는데 반드시 배열이 정렬된 상태이어야 올바른 결과를 얻는다.
+```java
+int[] arr = {3,2,0,1,4};
+int idx = Arrays.binarySearch(arr, 2)   // -5 배열이 정렬된 상태가 아니기 때문에 잘못된 결과를 받는다.
+
+Arrays.sort(arr);   // [0,1,2,3,4]
+int idx = Array.binarySearch(arr, 2)    // idx = 2 
+```
+- 배열의 첫 번째 요소부터 순서대로 하나씩 검색하는 것을 순차 검색이라고 한다.
+    - 순차 검색은 배열의 요소를 하나씩 비교하기 때문에 시간이 많이 걸린다.
+    - 반면에 이진검색은 배열의 검색할 범위를 반복적으로 절반씩 줄여가면서 검색하기 때문에 검색속도가 상당히 빠르다.
+
+문자열의 비교와 출력 - equlas(), toString()
+- toString()는 배열의 모든 요소를 문자열로 편하게 출력할 수 있다.
+    - toString()은 일차원배열에만 사용 가능하다. 다차원 배열에서는 deepToString()을 사용해야 한다.
+- equals()는 두 배열에 저장된 모든 요소를 비교해서 같으면 true, 다르면 false를 반환한다.
+    - equals()도 일차원 배열에만 사용가능하며, 다차원 배열의 비교에는 deepEquals()를 사용해야 한다.
+    - equals()로 비교하면 문자열을 비교하는 것이 아니라 배열에 저장된 배열의 주소를 비교하게 된다.
+    
+배열을 List로 변환 - asList(Object... a)
+- asList()는 배열을 List에 담아서 반환한다. 매개변수의 타입이 가변인수라서 배열 생성 없이 저장할 요소들만 나열하는 것도 가능하다.
+- 한 가지 주의할 점은 asList()가 반환한 List의 크기를 변경할 수 없다는 점이다.
+    - 추가 또는 삭제가 불가능하다.
+    
+parallelXXX(), spliterator(), stream()
+- parallel로 시작하는 메서드들은 보다 빠른 결과를 얻기 위해 여러 쓰레드가 작업을 나누어 처리하도록 한다.
+- spliterator()는 여러 쓰레드가 처리할 수 있게 하나의 작업을 여러 작업으로 나누는 Spliterator를 반환한다.
+- stream()은 컬렉션 스트림으로 변환한다.
+ 
