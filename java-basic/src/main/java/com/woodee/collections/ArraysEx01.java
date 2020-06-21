@@ -3,7 +3,7 @@ package com.woodee.collections;
 
 import java.util.Arrays;
 
-public class ArraysEx {
+public class ArraysEx01 {
     public static void main(String[] args) {
 
         int[] arr = {0,1,2,3,4};

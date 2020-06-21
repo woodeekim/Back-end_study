@@ -118,3 +118,34 @@ parallelXXX(), spliterator(), stream()
 - spliterator()는 여러 쓰레드가 처리할 수 있게 하나의 작업을 여러 작업으로 나누는 Spliterator를 반환한다.
 - stream()은 컬렉션 스트림으로 변환한다.
  
+### Comparator와 Comparable
+- Comparator와 Comparable은 모두 인터페이스로 컬렉션을 정렬하는데 필요한 메서드를 정의하고 있다.
+- Comparable을 구현하고 있는 클래스들은 클래스들은 같은 타입의 인스턴스끼리 서로 비교할 수 있는 클래스들, 주로 Iterator와 같은 wrapper클래스와 String, Date, File과 같은 것들이다
+    - 그래서 Comparable을 구현한 클래스는 정렬이 가능하다는 것을 의미한다. 
+- Comparable을 구현한 클래스들이 기본적으로 오름차순으로 정렬되어 있다.
+    - 내림차순 또는 다른 기준에 의해서 정렬되도록 하고 싶을 때 Comparator를 구현해서 정렬기준을 제공할 수 있다.
+```java
+Comparable 기본 정렬기준을 구현하는데 사용
+Comparator 기본 정렬기준 외에 다른 기준으로 정렬하고자 할 때 사용
+```
+
+### HashSet
+- HashSet은 Set인터페이스를 구현한 가장 대푝적인 컬렉션이다.
+- HashSet은 중복된 요소를 저장하지 않는다.
+    - HashSet에 새로운 요소를 추가할 때는 add(), addAll() 사용
+    - 이미 저장되어 있는 요소와 중복된 요소를 추가하고자 한다면 false를 반환한다. 
+    - HashSet의 특징을 이용하면, 컬렉션 내의 중복 요소들을 쉽게 제거 할 수 있다.
+- HashSet은 내부적으로 HashMap을 이용해서 만들어졌다.
+
+### TreeSet
+- TreeSet은 이진 검색 트리라는 자료구조의 형태로 데이터를 저장하는 컬렉션 클래스이다.
+    - 이진 검색 트리는 정렬, 검색, 범위검색에 높은 성능을 보이는 자료구조이다.
+- TreeSet은 이진 검색 트리의 성능을 향상시킨 red-black-tree로 구현되어 있다.
+```java
+// 이진 트리
+class TreeNode {
+    TreeNode left; // 왼쪽 자식노드
+    Object element; // 객체를 저장하기 위한 참조변수
+    TreeNode right; // 오른쪽 자식노드
+}
+```
