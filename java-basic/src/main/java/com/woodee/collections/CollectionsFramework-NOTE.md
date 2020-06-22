@@ -149,3 +149,25 @@ class TreeNode {
     TreeNode right; // 오른쪽 자식노드
 }
 ```
+
+### HashMap
+- Hashtable과 HasMap의 관계는 Vector와 ArrayList의 관계와 같아서 Hashtable보다는 새로운 버전인 HashMap을 사용할 것을 권한다.
+- HashMap은 Map을 구현했으므로 앞에서 살펴본 Map의 특징인 키(key)와 값(value)을 묶어서 하나의 데이터(entry)로 저장한다는 특징을 갖는다.
+- 해싱(hashing)을 사용하기 떄문에 많은 양의 데이터를 검색하는데 있어서 뛰어난 성능을 보인다.
+
+```java
+public class HashMap extends AbstractMap implements Map, Cloneable, Serializable {
+    transient Entry[] table;
+    ...
+    static class Entry implements Map.Entry {
+        final Object key;
+        Object value;
+        ...
+    }
+}
+```
+- HashMap은 Entry라는 내부 클래스를 정의하고, 다시 Entry타입의 배열을 선언하고 있다.
+- 키와 값은 별개의 값이 아니라 서로 관련된 값이기 때문에 각각의 배열로 선언하기 보다는 하나의 클래스로 정의해서 하나의 배열로 다루는 것이 데이터의 무결성적인 측면에서 더 바람직하다.
+- HashMap은 키와 값을 각각 Object 타입으로 저장한다.
+- 키는 저장된 값을 찾는데 사용되는 것이기 때문에 컬렉션 내에서 유일해야 한다.
+
