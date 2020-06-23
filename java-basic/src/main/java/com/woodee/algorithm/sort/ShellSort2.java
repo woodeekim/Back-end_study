@@ -1,4 +1,4 @@
-package com.woodee.sort;
+package com.woodee.algorithm.sort;
 
 import java.util.Scanner;
 

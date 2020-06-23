@@ -1,4 +1,4 @@
-package com.woodee.queue;
+package com.woodee.algorithm;
 
 /**
     - 큐는 FIFO(First In First Out)인 자료구조이다.

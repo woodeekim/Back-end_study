@@ -1,4 +1,4 @@
-package com.woodee.search;
+package com.woodee.algorithm.search;
 
 import java.util.Scanner;
 

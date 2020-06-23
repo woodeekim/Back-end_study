@@ -1,4 +1,4 @@
-package com.woodee.stack;
+package com.woodee.algorithm;
 
 /**
     - 스택은 LIFO(Last In First Out)인 자료구조다.

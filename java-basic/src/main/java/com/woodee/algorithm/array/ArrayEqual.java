@@ -1,4 +1,4 @@
-package com.woodee.array;
+package com.woodee.algorithm.array;
 
 import java.util.Scanner;
 
