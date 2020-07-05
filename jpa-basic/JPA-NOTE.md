@@ -84,3 +84,8 @@ JPA에서 가장 중요한 2가지
 - JPA 기본 전략 자체가 싱글테이블이라고 하는 한테이블에 다 넣는 방식과 매핑되기 때문이다.
 - @Inheritance(strategy = InheritanceType.JOINED)
     - 상속과 같은 구조로 JPA 가 만들어준다.
+
+@MappedSuperclass
+- 테이블과 관계 없고, 단순히 엔티티가 공통으로 사용하는 매핑정보를 모으는 역할이다.
+- 주로 등록일, 수정일, 등록자, 수정자 같은 전체 엔티티에서 공통으로 적용하는 정보를 모을 때 사용한다.
+- @Entity 클래스는 엔티티나 @MappedSuperclass로 지정한 클래스만 사용 가능하다.

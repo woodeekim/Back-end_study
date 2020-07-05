@@ -18,7 +18,7 @@
     - 참조가 없으므로 UML 도 잘못됨
  */
 
-/*
+
 package jpabook.shop.domain;
 
 import javax.persistence.*;
@@ -84,5 +84,3 @@ public class Member  {
         this.zip = zip;
     }
 }
-
-*/

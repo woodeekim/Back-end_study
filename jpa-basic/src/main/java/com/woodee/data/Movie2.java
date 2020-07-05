@@ -3,7 +3,7 @@ package com.woodee.data;
 import javax.persistence.Entity;
 
 @Entity
-public class Movie extends Item2 {
+public class Movie2 extends Item2 {
     private String director;
     private String actor;
 

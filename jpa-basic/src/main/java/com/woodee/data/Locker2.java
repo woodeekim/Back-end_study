@@ -5,7 +5,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 
 @Entity
-public class Locker {
+public class Locker2 {
 
     @Id @GeneratedValue
     private Long id;

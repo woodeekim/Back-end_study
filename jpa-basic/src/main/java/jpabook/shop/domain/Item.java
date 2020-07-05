@@ -1,12 +1,13 @@
-/*
+
 package jpabook.shop.domain;
 
 import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
-
-//@Entity
-public class Item  {
+@Entity
+@Inheritance(strategy = InheritanceType.SINGLE_TABLE)
+@DiscriminatorColumn
+public class Item {
 
     @Id @GeneratedValue
     @Column(name = "ITEM_ID")
@@ -51,4 +52,3 @@ public class Item  {
         this.stockQuantity = stockQuantity;
     }
 }
-*/

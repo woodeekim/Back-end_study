@@ -1,3 +1,4 @@
+/*
 package com.woodee.data;
 
 import javax.persistence.Entity;
@@ -6,3 +7,4 @@ import javax.persistence.Entity;
 public class Album extends Item2 {
     private String artist;
 }
+*/

@@ -1,7 +1,8 @@
+/*
 package com.woodee;
 
 import com.woodee.data.Member;
-import com.woodee.data.Movie;
+import com.woodee.data.Movie2;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
@@ -19,7 +20,7 @@ public class JpaMain {
             //Member member = new Member();
             //member.setUsername("새로운테스트");
 
-            Movie movice = new Movie();
+            Movie2 movice = new Movie2();
             movice.setActor("aaa");
             movice.setDirector("bbb");
             movice.setName("토이 스토리");
@@ -30,7 +31,7 @@ public class JpaMain {
             em.flush();
             em.close();
 
-            Movie findMovie = em.find(Movie.class, movice.getId());
+            Movie2 findMovie = em.find(Movie2.class, movice.getId());
             //soutv 쓰면 한번에 가져올 수 있다.
             System.out.println("findMovie = " + findMovie);
 
@@ -43,3 +44,4 @@ public class JpaMain {
         em.close();;
     }
 }
+*/

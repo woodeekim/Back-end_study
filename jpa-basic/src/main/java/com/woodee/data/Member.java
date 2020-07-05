@@ -1,10 +1,13 @@
+/*
 package com.woodee.data;
 
 import jpabook.shop.domain.Team;
 
 import javax.persistence.*;
 
-/*@Entity*/
+*/
+/*@Entity*//*
+
 public class Member {
 
     @Id @GeneratedValue
@@ -20,7 +23,7 @@ public class Member {
 
     @OneToOne
     @JoinColumn(name = "LOCKER_ID")
-    private Locker locker;
+    private Locker2 locker;
 
     public Long getId() {
         return id;
@@ -46,3 +49,4 @@ public class Member {
         this.team = team;
     }
 }
+*/
