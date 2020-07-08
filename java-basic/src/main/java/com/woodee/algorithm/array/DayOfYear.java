@@ -34,6 +34,11 @@ public class DayOfYear {
             System.out.print("년"); int year = scanner.nextInt();
             System.out.print("월"); int month = scanner.nextInt();
             System.out.print("일"); int day = scanner.nextInt();
+
+            System.out.printf("그 해 %d 일째입니다. \n", dayOfYear(year, month,day));
+
+            System.out.print("한 번 더? (1.예/0.아니요)");
+            retry = scanner.nextInt();
         }while (retry==1);
     }
 }
