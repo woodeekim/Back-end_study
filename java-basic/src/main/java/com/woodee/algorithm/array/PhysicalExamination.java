@@ -1,6 +1,5 @@
 package com.woodee.algorithm.array;
 
-import jdk.internal.misc.VM;
 
 import java.util.Scanner;
 
