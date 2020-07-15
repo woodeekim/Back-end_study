@@ -8,6 +8,7 @@ public class CollectionsEx01 {
         List list = new ArrayList();
         System.out.println(list);
 
+        // 자바 5 에서 나온 가변인자 타입...변수명
         Collections.addAll(list,1,2,3,4,5);
         System.out.println(list);
 

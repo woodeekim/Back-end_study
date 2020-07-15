@@ -14,6 +14,7 @@ public class HashMapEx02 {
         /*
             entrySet()
             - HashMap에 저장된 키와 값을 엔트리(키와 값의 결합)의 형태로 Set에 저장해서 반환
+            - map 에서는 바로 iterator()를 못쓴다.
          */
         Set set = map.entrySet();
         Iterator iterator = set.iterator();

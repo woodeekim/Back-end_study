@@ -7,6 +7,7 @@ public class HashMapEx01 {
         HashMap map = new HashMap();
         map.put("myId", "1234");
         map.put("asdf", "1111");
+        // 키가 같은 결우 마지막으로 덮어씌어짐
         map.put("asdf","1234");
 
         Scanner scanner = new Scanner(System.in);
