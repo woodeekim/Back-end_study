@@ -2,6 +2,7 @@ package org.woodee.example;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Comparator;
 import java.util.List;
 
 // 2-1 동작 파라미터화: 프레디케이트로 사과 필터링
