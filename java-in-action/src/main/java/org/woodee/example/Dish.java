@@ -3,6 +3,7 @@ package org.woodee.example;
 
 import java.util.Arrays;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class Dish {
 
@@ -18,6 +19,21 @@ public class Dish {
                 new Dish("prawns", false, 300, Type.FISH),
                 new Dish("salmon", false, 450, Type.FISH)
         );
+
+        // 4.4.1 중간 연산 예제
+        List<String> names = menu.stream()
+                                    .filter(dish -> {
+                                        System.out.println("filtering: " + dish.getName());
+                                        return dish.getCalories() > 300;
+                                    })
+                                    .map(dish -> {
+                                        System.out.println("mapping: " + dish.getName());
+                                        return dish.getName();
+                                    })
+                                    .limit(3)
+                                    .collect(Collectors.toList());
+        System.out.println(names);
+
     }
     private final String name;
     private final boolean vegetarian;
