@@ -1,0 +1,294 @@
+
+### 객체 지향
+- 객체가 다른 객체의 데이터로 접근하는걸 막는다.
+- 객체는 프로시저를 이용해서 외부의 기능을 제공한다.
+
+### 객체란
+- 객체의 핵심은 그 객체가 어떤 기능을 제공하느냐에 정의를 한다.
+- 객체는 기능으로 정의를 한다.
+- 객체와 객체는 기능을 사용해서 연결한다.
+- 다시 한 번 말하지만 객체는 기능으로 정의한다.
+
+데이터만을 위한 객체
+- 특별한 기능이 없고 단순히 데이터에 바로 접근하는 클래스는 객체라기 보다 데이터(데이터 클래스)에 가깝다.
+
+기능 명세
+- 메서드를 이용해서 기능 명세를 한다.
+    - 이름, 파라미터, 결과로 구성
+    
+메시지
+- 객체와 객체 상호 작용
+    - 메시지를 주고 받는다고 표현한다.
+    - 메서드를 호출하는 메세지, 리턴하는 메세지, 익셉션 메세지
+    
+### 캡슐화
+- 캡슐화만 잘해도 좋은 코드를 만들 가능성이 높아진다.
+- 데이터와 관련 기능을 묶는 것을 캡슐화라고 한다.
+- 객체가 기능을 어떻게 구현했는지 외부에 감추는 것을 말한다.
+- 캡슐화 속에 정보 은닉의 표현을 포함한다.
+- 캡슐화는 기능의 구현을 외부에 감추는 것이다.
+- 캡슐화를 통해 기능을 사용하는 코드에 영향을 주지 않고 (또는 최소화) 내부 구현을 변경할 수 있는 유연함을 얻을 수 있다.
+    - 변경하는 비용을 감추는 효과를 누를 수 있다.
+
+#### 캡슐화를 하는 이유
+- 외부에 영향 없이 객체 내부의 구현을 변경하기 위해서
+
+다음은 캡슐화를 하지 않은 코드다.
+```java
+if (acc.getMembership() == REGULAR && acc.getExpDate().isAfter(now())) {
+    ...정회원 기능
+}
+// 5년 이상 사용자에 한해서 일부 기능 정회원 혜택 1개월 무상 제공
+if (acc.getMembership() == REGURLA &&
+    (
+     (acc.getServiceDate().isAfter(fiveYearAgo) && acc.getExpDate().isAfter(now())) ||
+     (acc.getServiceDate().isBefore(fiveYearAgo) && addMonth(acc.getExpDate().isAfter(now())))
+    )   
+) {
+    ...정회원 기능
+}
+```
+- 요구사항에 변화가 발생하면서 데이터를 사용하는 방법에 변화가 생겼다. 그러다보니 데이터를 사용하는 많은 코드를 수정이 발생하게 된다. (절차지향에서 데이터를 공유하는 방법의 단점)
+
+다음은 캡슐화를 한 코드다.
+```java
+if (acc.hasRegularPermission()) {
+    ...정회원 기능
+}
+```￿￿￿￿￿￿￿￿
+
+```java
+public class Account {
+    private MemberShip memberShip;
+    private Date expDate;
+    
+    public boolean hasRegularPermission() {
+        return membership == REGULAR && expDate.isAfter(now));    
+    }
+}
+
+```
+- 캡슐화느 데이터와 관련된 기능을 하나로 묶는 것이다. 기능 상세를 감춘 것이다.
+
+만약 요구사항이 발생했다면
+```java
+if (acc.hasRegularPermission()) {
+    ...정회원 기능
+}
+```
+```java
+public class Account {
+    public boolean hasRegularPermission() {
+        return membership == REGULAR &&
+            (expDate.isAfter(now()) ||
+            (serviceDate.isBefore(fiveYearAgo()) && 
+             addMonth(expDate).ifAfter(now()))
+            );
+    }
+}
+```
+- 즉 내부 구현만 변경하면 되고 외부의 코드는 바뀌지 않는다.
+- 캡슐화를 잘하면 어떤 요구사항이 발생했을 때 연쇄적인 변경 전파를 최소화한다.
+- 캡슐하를 시도하게 되면 기능에 대한 이해를 높일 수 있다.
+
+#### 캡슐화를 위한 규칙
+- Tell, Don`t Ask
+    - 데이터를 달라 하지 말고 해달라고 하기.
+다음은 데이터를 달라하는 코드와 해달라고 하는 코드다
+```java
+if (acc.getMembership == REGULAR {..정회원 기능})
+if (acc.hasRegularPermission()) {...정회원 기능}
+```
+
+- Demeter`s Law (이건 기계적으로 할 수 있는 부분이다.)
+    - 메서드에서 생성한 객체의 메서드만 호출
+    - 파라미터로 받은 객체의 메서드만 호출
+    - 필드로 참조하는 객체의 메서드만 호출
+    - 정리하면 메서드 하나만 호출하는 방식을 말한다.
+    - 이 방식을 적용하다 보면 캡슐화가 될 가능성이 높아진다.
+
+```java
+acc.getExpDate().isAfter(now) -> acc.isExpired()
+
+Date date = acc.getExpDate();
+date.isAfter(now);            -> acc.isValid(now)
+```
+### 캡슐화 연습
+    
+캡슐화 연습1
+- 다음은 캡슐화를 하지 않은 코드다.
+```java
+public AuthResult authenticate(String id, String pw) {
+    Member mem = fineOne(id);
+    if (mem == null) return AuthResult.NO_MARCH;
+
+    if (mem.getVerificationEmailStatus() != 2 ) {
+        return AuthResult.NO_EMAIL_VERIFIED;
+    }
+
+    if (passwordEncoder.isPasswordValid(mem.getPassword(), pw, mem.getId())) {
+        return AuthResult.SUCCESS;
+    }
+    return AuthResult.NO_MARCH;
+}
+```
+- 다음은 캡슐화를 한 코드다.
+```java
+public AuthResult authenticate(String id, String pw) {
+    Member mem = fineOne(id);
+    if (mem == null) return AuthResult.NO_MARCH;
+    if (mem.isEmailVerified()) { // <- 멤버가 제공하는 기능으로 바꿀 수 있다.
+        return AuthResult.NO_EAMIL_VERIFIED;
+    }
+    if (passwordEncoder.isPasswordValid(mem.getPassword(), pw, mem.getId())) {
+        return AuthResult.SUCCESS;
+    }
+    return AuthResult.NO_MARCH;
+}
+```
+- 데이터를 가져와서 판단하지 말고 판단 해달라고 해달라
+
+
+캡슐화 연습2
+- 다음은 캡슐화를 하지 않은 코드다,
+```java
+public class Rental {
+    private Movie movie;
+    private int daysRented;
+    
+    public int getFrequentRenterPoints() {
+        if (movie.getPriceCode() == Movie.NEW_RELEASE && daysRented > 1) {
+            return 2;
+        } else {
+            return 1;
+        }
+    }
+}
+```
+```java
+public class Movie {
+    public static int REGULAR = 0;
+    public static int NEW_RELEASE = 1;
+    private int priceCode;
+   
+    public int getPriceCode() {
+        return priceCode;
+    }
+}
+```
+- 다음은 캡슐화를 한 코드다.
+```java
+public class Rental {
+    private Movie movie;
+    private int daysRented;
+    
+    public int getFrequentRenterPoints() {
+        return movie.getFrequendRenterPoints(daysRented);
+            
+    }
+}
+```
+```java
+public class Movie {
+    public static int NEW_RELEASE = 1;
+    public static int REGULAR = 0;
+    private int priceCode;
+   
+    public int getFrequentRenterPoints(int daysRented) {
+        if (priceCode == NEW_RELEASE && daysRented > 1) {
+            return 2;
+        } else {
+            return 1;
+        }
+    }
+}
+```
+
+캡슐화 연습3
+- 다음은 캡슐화를 하지 않은 코드다.
+```java
+Timer t = new Timer();
+t.startTime = System.currentTimeMillis();
+...
+t.stopTime = System.currentTimeMillis();
+long elaspeedTime = t.stopTime - t.startTime;
+```￿￿￿￿
+```java
+public class Timer {
+    public long startTime;
+    public long stopTime;
+}
+```
+- 다음은 캡슐화를 한 코드다.
+```java
+Timer t = new Timer();
+t.startTime = System.currentTimeMillis();
+...
+t.stopTime = System.currentTimeMillis();
+long elaspeedTime = t.stopTime - t.startTime;
+```￿￿￿￿
+```java
+public class Timer {
+    private long startTime;
+    private long stopTime;
+
+    public void startTime() {
+        return this.startTime = System.currentTimeMillis();
+    }
+    
+    public void stopTime() {
+        return stopTime = System.currentTimeMillis();
+    }
+
+    public long elaspedTime(TimeUnit unit) {
+        switch (unit) {
+            case MILLISECOND:
+                return endTime - startTime;
+        }
+    }
+}
+```
+
+캡슐화 연습4
+- 다음은 캡슐화를 하지 않은 코드다.
+```java
+public void verifyEmail(String token) {
+    Member mem = findByToken(token);
+    if (mem == null ) throw new BadTokenException();
+    
+    if (mem.getVerificationEmailStatus() == 2) {
+        throw new AlreadyVerifiedException();
+    } else {
+        mem.setVerificationEmailStatus(2);
+    }
+}
+```
+
+- 다음은 캡슐화를 한 코드다.
+```java
+public void verifyEmail(String token) {
+    Member mem = findByToken(token);
+    if (mem == null ) throw new BadTokenException();
+    mem.verifyEmail();  
+}
+```
+```java
+public class Member {
+    private int verificationEmailStatus;
+    
+    public void verifyEmail() {
+        if (isEmailVerified()){
+            throw new AlteadyVerifiedException();
+        } else {
+            this.verificationEmailStatus = 2;
+        }
+    }
+    
+    public boolean isEmailVerified() {
+        return verificationEmailStatus == 2;
+    }
+
+}
+```
+
+    
