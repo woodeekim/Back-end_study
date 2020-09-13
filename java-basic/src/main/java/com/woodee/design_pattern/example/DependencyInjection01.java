@@ -9,7 +9,7 @@ import java.util.Date;
  *      - 이미 만들어져 있는 걸 주입 받기 때문에 만들어 질 지 안 만들어 질 지 걱정안해도 된다.
  * - 이처럼 약한 결합을 사용하는 프로그래밍은 다른 클래스의 변화에 보다 더 안전하고 유연하게 대처할 수 있다.
  * */
-public class Ex01_DI {
+public class DependencyInjection01 {
     public static void main(String[] args) {
         Date date = new Date();
         System.out.println("강한 결합인 Date : "+date);
